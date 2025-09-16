@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.fineract.infrastructure.core.data.ApiParameterError;
+import org.apache.fineract.infrastructure.core.data.DataValidatorBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,13 +42,11 @@ public class InterestRateChartValidationTest {
 
     @Test
     public void testOverlappingRangesValidation() {
-        // Given - create error directly with clean error code
-        ApiParameterError error = ApiParameterError.parameterError("validation.msg.savings.interestRateChart.slabs.overlap",
-                "Failed data validation due to: validation.msg.savings.interestRateChart.slabs.overlap.", null, null, 1, 12, 6, 18, 1000.0,
-                5000.0, 3000.0, 8000.0);
+        // Given - use DataValidatorBuilder with resource/parameter context
+        DataValidatorBuilder v = new DataValidatorBuilder(dataValidationErrors).resource("savings.interestRateChart").parameter("slabs");
 
-        // When - add error to validation errors
-        dataValidationErrors.add(error);
+        // When - simulate overlapping ranges validation
+        v.failWithCode("overlap", 1, 12, 6, 18, 1000.0, 5000.0, 3000.0, 8000.0);
 
         // Then
         assertFalse(dataValidationErrors.isEmpty());
@@ -59,13 +58,11 @@ public class InterestRateChartValidationTest {
 
     @Test
     public void testGapBetweenRangesValidation() {
-        // Given - create error directly with clean error code
-        ApiParameterError error = ApiParameterError.parameterError("validation.msg.savings.interestRateChart.slabs.gap",
-                "Failed data validation due to: validation.msg.savings.interestRateChart.slabs.gap.", null, null, 1, 12, 15, 24, 1000.0,
-                5000.0, 6000.0, 10000.0);
+        // Given - use DataValidatorBuilder with resource/parameter context
+        DataValidatorBuilder v = new DataValidatorBuilder(dataValidationErrors).resource("savings.interestRateChart").parameter("slabs");
 
-        // When - add error to validation errors
-        dataValidationErrors.add(error);
+        // When - simulate gap between ranges validation
+        v.failWithCode("gap", 1, 12, 15, 24, 1000.0, 5000.0, 6000.0, 10000.0);
 
         // Then
         assertFalse(dataValidationErrors.isEmpty());

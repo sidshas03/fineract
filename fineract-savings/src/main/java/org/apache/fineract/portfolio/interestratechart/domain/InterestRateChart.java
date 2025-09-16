@@ -137,25 +137,21 @@ public class InterestRateChart extends AbstractPersistableCustom<Long> {
                 if (iSlabs.slabFields().isValidChart(isPrimaryGroupingByAmount)
                         && nextSlabs.slabFields().isValidChart(isPrimaryGroupingByAmount)) {
                     if (iSlabs.slabFields().isRateChartOverlapping(nextSlabs.slabFields(), isPrimaryGroupingByAmount)) {
-                        // Create error directly with clean error code (no double prefix)
-                        final ApiParameterError error = ApiParameterError.parameterError(
-                                "validation.msg.savings.interestRateChart.slabs.overlap",
-                                "Failed data validation due to: validation.msg.savings.interestRateChart.slabs.overlap.", null, null,
-                                iSlabs.slabFields().fromPeriod(), iSlabs.slabFields().toPeriod(), nextSlabs.slabFields().fromPeriod(),
-                                nextSlabs.slabFields().toPeriod(), iSlabs.slabFields().getAmountRangeFrom(),
-                                iSlabs.slabFields().getAmountRangeTo(), nextSlabs.slabFields().getAmountRangeFrom(),
-                                nextSlabs.slabFields().getAmountRangeTo());
-                        baseDataValidator.getDataValidationErrors().add(error);
+                        // Use DataValidatorBuilder with resource/parameter context for clean error codes
+                        DataValidatorBuilder v = new DataValidatorBuilder(baseDataValidator.getDataValidationErrors())
+                                .resource("savings.interestRateChart").parameter("slabs");
+                        v.failWithCode("overlap", iSlabs.slabFields().fromPeriod(), iSlabs.slabFields().toPeriod(),
+                                nextSlabs.slabFields().fromPeriod(), nextSlabs.slabFields().toPeriod(),
+                                iSlabs.slabFields().getAmountRangeFrom(), iSlabs.slabFields().getAmountRangeTo(),
+                                nextSlabs.slabFields().getAmountRangeFrom(), nextSlabs.slabFields().getAmountRangeTo());
                     } else if (iSlabs.slabFields().isRateChartHasGap(nextSlabs.slabFields(), isPrimaryGroupingByAmount)) {
-                        // Create error directly with clean error code (no double prefix)
-                        final ApiParameterError error = ApiParameterError.parameterError(
-                                "validation.msg.savings.interestRateChart.slabs.gap",
-                                "Failed data validation due to: validation.msg.savings.interestRateChart.slabs.gap.", null, null,
-                                iSlabs.slabFields().fromPeriod(), iSlabs.slabFields().toPeriod(), nextSlabs.slabFields().fromPeriod(),
-                                nextSlabs.slabFields().toPeriod(), iSlabs.slabFields().getAmountRangeFrom(),
-                                iSlabs.slabFields().getAmountRangeTo(), nextSlabs.slabFields().getAmountRangeFrom(),
-                                nextSlabs.slabFields().getAmountRangeTo());
-                        baseDataValidator.getDataValidationErrors().add(error);
+                        // Use DataValidatorBuilder with resource/parameter context for clean error codes
+                        DataValidatorBuilder v = new DataValidatorBuilder(baseDataValidator.getDataValidationErrors())
+                                .resource("savings.interestRateChart").parameter("slabs");
+                        v.failWithCode("gap", iSlabs.slabFields().fromPeriod(), iSlabs.slabFields().toPeriod(),
+                                nextSlabs.slabFields().fromPeriod(), nextSlabs.slabFields().toPeriod(),
+                                iSlabs.slabFields().getAmountRangeFrom(), iSlabs.slabFields().getAmountRangeTo(),
+                                nextSlabs.slabFields().getAmountRangeFrom(), nextSlabs.slabFields().getAmountRangeTo());
                     }
                     if (isPrimaryGroupingByAmount) {
                         if (!iSlabs.slabFields().isAmountSame(nextSlabs.slabFields())) {
