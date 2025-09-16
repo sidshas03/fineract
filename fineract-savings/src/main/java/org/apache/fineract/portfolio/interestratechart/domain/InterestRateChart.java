@@ -137,13 +137,13 @@ public class InterestRateChart extends AbstractPersistableCustom<Long> {
                 if (iSlabs.slabFields().isValidChart(isPrimaryGroupingByAmount)
                         && nextSlabs.slabFields().isValidChart(isPrimaryGroupingByAmount)) {
                     if (iSlabs.slabFields().isRateChartOverlapping(nextSlabs.slabFields(), isPrimaryGroupingByAmount)) {
-                        baseDataValidator.failWithCode("validation.msg.savings.interestRateChart.slabs.overlap",
+                        baseDataValidator.failWithCodeNoParameterAddedToErrorCode("validation.msg.savings.interestRateChart.slabs.overlap",
                                 iSlabs.slabFields().fromPeriod(), iSlabs.slabFields().toPeriod(), nextSlabs.slabFields().fromPeriod(),
                                 nextSlabs.slabFields().toPeriod(), iSlabs.slabFields().getAmountRangeFrom(),
                                 iSlabs.slabFields().getAmountRangeTo(), nextSlabs.slabFields().getAmountRangeFrom(),
                                 nextSlabs.slabFields().getAmountRangeTo());
                     } else if (iSlabs.slabFields().isRateChartHasGap(nextSlabs.slabFields(), isPrimaryGroupingByAmount)) {
-                        baseDataValidator.failWithCode("validation.msg.savings.interestRateChart.slabs.gap",
+                        baseDataValidator.failWithCodeNoParameterAddedToErrorCode("validation.msg.savings.interestRateChart.slabs.gap",
                                 iSlabs.slabFields().fromPeriod(), iSlabs.slabFields().toPeriod(), nextSlabs.slabFields().fromPeriod(),
                                 nextSlabs.slabFields().toPeriod(), iSlabs.slabFields().getAmountRangeFrom(),
                                 iSlabs.slabFields().getAmountRangeTo(), nextSlabs.slabFields().getAmountRangeFrom(),

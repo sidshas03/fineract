@@ -46,13 +46,13 @@ public class InterestRateChartValidationTest {
         DataValidatorBuilder baseDataValidator = new DataValidatorBuilder(dataValidationErrors).resource("interestRateChart");
 
         // When - simulate overlapping ranges validation
-        baseDataValidator.failWithCode("validation.msg.savings.interestRateChart.slabs.overlap", 1, 12, 6, 18, 1000.0, 5000.0, 3000.0,
-                8000.0);
+        baseDataValidator.failWithCodeNoParameterAddedToErrorCode("validation.msg.savings.interestRateChart.slabs.overlap", 1, 12, 6, 18,
+                1000.0, 5000.0, 3000.0, 8000.0);
 
         // Then
         assertFalse(dataValidationErrors.isEmpty());
         ApiParameterError error = dataValidationErrors.get(0);
-        assertEquals("validation.msg.interestRateChart.null.validation.msg.savings.interestRateChart.slabs.overlap",
+        assertEquals("validation.msg.interestRateChart.validation.msg.savings.interestRateChart.slabs.overlap",
                 error.getUserMessageGlobalisationCode());
         // Check that arguments are present (exact count may vary based on DataValidatorBuilder implementation)
         assertFalse(error.getArgs().isEmpty());
@@ -64,13 +64,13 @@ public class InterestRateChartValidationTest {
         DataValidatorBuilder baseDataValidator = new DataValidatorBuilder(dataValidationErrors).resource("interestRateChart");
 
         // When - simulate gap between ranges validation
-        baseDataValidator.failWithCode("validation.msg.savings.interestRateChart.slabs.gap", 1, 12, 15, 24, 1000.0, 5000.0, 6000.0,
-                10000.0);
+        baseDataValidator.failWithCodeNoParameterAddedToErrorCode("validation.msg.savings.interestRateChart.slabs.gap", 1, 12, 15, 24,
+                1000.0, 5000.0, 6000.0, 10000.0);
 
         // Then
         assertFalse(dataValidationErrors.isEmpty());
         ApiParameterError error = dataValidationErrors.get(0);
-        assertEquals("validation.msg.interestRateChart.null.validation.msg.savings.interestRateChart.slabs.gap",
+        assertEquals("validation.msg.interestRateChart.validation.msg.savings.interestRateChart.slabs.gap",
                 error.getUserMessageGlobalisationCode());
         // Check that arguments are present (exact count may vary based on DataValidatorBuilder implementation)
         assertFalse(error.getArgs().isEmpty());
