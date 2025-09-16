@@ -137,17 +137,25 @@ public class InterestRateChart extends AbstractPersistableCustom<Long> {
                 if (iSlabs.slabFields().isValidChart(isPrimaryGroupingByAmount)
                         && nextSlabs.slabFields().isValidChart(isPrimaryGroupingByAmount)) {
                     if (iSlabs.slabFields().isRateChartOverlapping(nextSlabs.slabFields(), isPrimaryGroupingByAmount)) {
-                        baseDataValidator.failWithCodeNoParameterAddedToErrorCode("validation.msg.savings.interestRateChart.slabs.overlap",
+                        // Create error directly with clean error code (no double prefix)
+                        final ApiParameterError error = ApiParameterError.parameterError(
+                                "validation.msg.savings.interestRateChart.slabs.overlap",
+                                "Failed data validation due to: validation.msg.savings.interestRateChart.slabs.overlap.", null, null,
                                 iSlabs.slabFields().fromPeriod(), iSlabs.slabFields().toPeriod(), nextSlabs.slabFields().fromPeriod(),
                                 nextSlabs.slabFields().toPeriod(), iSlabs.slabFields().getAmountRangeFrom(),
                                 iSlabs.slabFields().getAmountRangeTo(), nextSlabs.slabFields().getAmountRangeFrom(),
                                 nextSlabs.slabFields().getAmountRangeTo());
+                        baseDataValidator.getDataValidationErrors().add(error);
                     } else if (iSlabs.slabFields().isRateChartHasGap(nextSlabs.slabFields(), isPrimaryGroupingByAmount)) {
-                        baseDataValidator.failWithCodeNoParameterAddedToErrorCode("validation.msg.savings.interestRateChart.slabs.gap",
+                        // Create error directly with clean error code (no double prefix)
+                        final ApiParameterError error = ApiParameterError.parameterError(
+                                "validation.msg.savings.interestRateChart.slabs.gap",
+                                "Failed data validation due to: validation.msg.savings.interestRateChart.slabs.gap.", null, null,
                                 iSlabs.slabFields().fromPeriod(), iSlabs.slabFields().toPeriod(), nextSlabs.slabFields().fromPeriod(),
                                 nextSlabs.slabFields().toPeriod(), iSlabs.slabFields().getAmountRangeFrom(),
                                 iSlabs.slabFields().getAmountRangeTo(), nextSlabs.slabFields().getAmountRangeFrom(),
                                 nextSlabs.slabFields().getAmountRangeTo());
+                        baseDataValidator.getDataValidationErrors().add(error);
                     }
                     if (isPrimaryGroupingByAmount) {
                         if (!iSlabs.slabFields().isAmountSame(nextSlabs.slabFields())) {
