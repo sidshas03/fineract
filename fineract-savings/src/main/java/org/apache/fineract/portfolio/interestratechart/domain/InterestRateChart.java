@@ -144,14 +144,16 @@ public class InterestRateChart extends AbstractPersistableCustom<Long> {
                         && nextSlabs.slabFields().isValidChart(isPrimaryGroupingByAmount)) {
                     if (iSlabs.slabFields().isRateChartOverlapping(nextSlabs.slabFields(), isPrimaryGroupingByAmount)) {
                         baseDataValidator.failWithCodeNoParameterAddedToErrorCode("chart.slabs.range.overlapping",
-                                slabContext + " and " + nextSlabContext + "There is an overlap between these slabs. Please ensure slabs do not overlap.",
+                                slabContext + " and " + nextSlabContext
+                                        + "There is an overlap between these slabs. Please ensure slabs do not overlap.",
                                 iSlabs.slabFields().fromPeriod(), iSlabs.slabFields().toPeriod(), nextSlabs.slabFields().fromPeriod(),
                                 nextSlabs.slabFields().toPeriod(), iSlabs.slabFields().getAmountRangeFrom(),
                                 iSlabs.slabFields().getAmountRangeTo(), nextSlabs.slabFields().getAmountRangeFrom(),
                                 nextSlabs.slabFields().getAmountRangeTo());
                     } else if (iSlabs.slabFields().isRateChartHasGap(nextSlabs.slabFields(), isPrimaryGroupingByAmount)) {
                         baseDataValidator.failWithCodeNoParameterAddedToErrorCode("chart.slabs.range.has.gap",
-                                slabContext + " and " + nextSlabContext + "There is a gap between these slabs. Please ensure slabs are continuous.",
+                                slabContext + " and " + nextSlabContext
+                                        + "There is a gap between these slabs. Please ensure slabs are continuous.",
                                 iSlabs.slabFields().fromPeriod(), iSlabs.slabFields().toPeriod(), nextSlabs.slabFields().fromPeriod(),
                                 nextSlabs.slabFields().toPeriod(), iSlabs.slabFields().getAmountRangeFrom(),
                                 iSlabs.slabFields().getAmountRangeTo(), nextSlabs.slabFields().getAmountRangeFrom(),
@@ -172,7 +174,8 @@ public class InterestRateChart extends AbstractPersistableCustom<Long> {
                     } else if (!iSlabs.slabFields().isPeriodsSame(nextSlabs.slabFields())) {
                         if (InterestRateChartSlabFields.isNotProperAmountStart(nextSlabs.slabFields())) {
                             baseDataValidator.failWithCodeNoParameterAddedToErrorCode("chart.slabs.amount.range.start.incorrect",
-                                    nextSlabContext + "The start amount of this slab is incorrect.", nextSlabs.slabFields().getAmountRangeFrom());
+                                    nextSlabContext + "The start amount of this slab is incorrect.",
+                                    nextSlabs.slabFields().getAmountRangeFrom());
                         }
                         if (iSlabs.slabFields().getAmountRangeTo() != null) {
                             baseDataValidator.failWithCodeNoParameterAddedToErrorCode("chart.slabs.amount.range.end.incorrect",
